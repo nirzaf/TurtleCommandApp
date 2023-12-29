@@ -32,7 +32,12 @@
             toolStripMenuItem1 = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1 = new TableLayoutPanel();
+            tableLayoutPanel2 = new TableLayoutPanel();
+            PBTurtle = new PictureBox();
             menuStrip1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)PBTurtle).BeginInit();
             SuspendLayout();
             // 
             // menuStrip1
@@ -63,6 +68,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 90F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 24);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -71,6 +77,35 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 90F));
             tableLayoutPanel1.Size = new Size(1148, 631);
             tableLayoutPanel1.TabIndex = 1;
+            // 
+            // tableLayoutPanel2
+            // 
+            tableLayoutPanel2.ColumnCount = 4;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Controls.Add(PBTurtle, 0, 3);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(60, 66);
+            tableLayoutPanel2.Name = "tableLayoutPanel2";
+            tableLayoutPanel2.RowCount = 4;
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel2.Size = new Size(1027, 562);
+            tableLayoutPanel2.TabIndex = 0;
+            // 
+            // PBTurtle
+            // 
+            PBTurtle.Image = Properties.Resources.turtle;
+            PBTurtle.Location = new Point(3, 423);
+            PBTurtle.Name = "PBTurtle";
+            PBTurtle.Size = new Size(250, 136);
+            PBTurtle.SizeMode = PictureBoxSizeMode.Zoom;
+            PBTurtle.TabIndex = 0;
+            PBTurtle.TabStop = false;
             // 
             // Form1
             // 
@@ -82,8 +117,12 @@
             MainMenuStrip = menuStrip1;
             Name = "Form1";
             Text = "Floor Turtle Command";
+            Load += Form1_Load;
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)PBTurtle).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -94,5 +133,7 @@
         private ToolStripMenuItem toolStripMenuItem1;
         private ToolStripMenuItem newGameToolStripMenuItem;
         private TableLayoutPanel tableLayoutPanel1;
+        private TableLayoutPanel tableLayoutPanel2;
+        private PictureBox PBTurtle;
     }
 }
