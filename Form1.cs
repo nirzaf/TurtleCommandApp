@@ -65,23 +65,15 @@ namespace TurtleCommandApp
             // rotate the turtle clockwise by 90 degrees from the current position
             PBTurtle.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
 
-            // keep track of the current position of the turtle in _imagePosition variable
-            if (_imagePosition == "Top")
+            _imagePosition = _imagePosition switch
             {
-                _imagePosition = "Right";
-            }
-            else if (_imagePosition == "Right")
-            {
-                _imagePosition = "Bottom";
-            }
-            else if (_imagePosition == "Bottom")
-            {
-                _imagePosition = "Left";
-            }
-            else if (_imagePosition == "Left")
-            {
-                _imagePosition = "Top";
-            }
+                // keep track of the current position of the turtle in _imagePosition variable
+                "Top" => "Right",
+                "Right" => "Bottom",
+                "Bottom" => "Left",
+                "Left" => "Top",
+                _ => _imagePosition
+            };
 
             LabelTurtlePosition.Text = _imagePosition;
             PBTurtle.Refresh();
@@ -112,6 +104,12 @@ namespace TurtleCommandApp
 
             LabelTurtlePosition.Text = _imagePosition;
             PBTurtle.Refresh();
+        }
+
+        private void InstructionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            About about = new About();
+            about.ShowDialog();
         }
     }
 }

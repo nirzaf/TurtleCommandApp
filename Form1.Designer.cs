@@ -32,9 +32,13 @@
             menuStrip1 = new MenuStrip();
             toolStripMenuItem1 = new ToolStripMenuItem();
             newGameToolStripMenuItem = new ToolStripMenuItem();
+            aboutToolStripMenuItem = new ToolStripMenuItem();
+            InstructionsToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1 = new TableLayoutPanel();
             TurtleBoard = new TableLayoutPanel();
             PBTurtle = new PictureBox();
+            LabelTurtlePosition = new Label();
+            tableLayoutPanel3 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
             BtnUpArrow = new Button();
             BtnDownArrow = new Button();
@@ -42,8 +46,6 @@
             BtnLeftArrow = new Button();
             BtnRotateClockwise = new Button();
             BtnRotateAntiClockWise = new Button();
-            LabelTurtlePosition = new Label();
-            tableLayoutPanel3 = new TableLayoutPanel();
             tableLayoutPanel4 = new TableLayoutPanel();
             label1 = new Label();
             TxtCommand = new TextBox();
@@ -51,14 +53,14 @@
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PBTurtle).BeginInit();
-            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
             // 
-            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1 });
+            menuStrip1.Items.AddRange(new ToolStripItem[] { toolStripMenuItem1, aboutToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
             menuStrip1.Size = new Size(1165, 24);
@@ -77,6 +79,20 @@
             newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
             newGameToolStripMenuItem.Size = new Size(132, 22);
             newGameToolStripMenuItem.Text = "New Game";
+            // 
+            // aboutToolStripMenuItem
+            // 
+            aboutToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { InstructionsToolStripMenuItem });
+            aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            aboutToolStripMenuItem.Size = new Size(52, 20);
+            aboutToolStripMenuItem.Text = "About";
+            // 
+            // InstructionsToolStripMenuItem
+            // 
+            InstructionsToolStripMenuItem.Name = "InstructionsToolStripMenuItem";
+            InstructionsToolStripMenuItem.Size = new Size(136, 22);
+            InstructionsToolStripMenuItem.Text = "Instructions";
+            InstructionsToolStripMenuItem.Click += InstructionsToolStripMenuItem_Click;
             // 
             // tableLayoutPanel1
             // 
@@ -129,6 +145,31 @@
             PBTurtle.TabIndex = 0;
             PBTurtle.TabStop = false;
             PBTurtle.WaitOnLoad = true;
+            // 
+            // LabelTurtlePosition
+            // 
+            LabelTurtlePosition.AutoSize = true;
+            LabelTurtlePosition.Location = new Point(3, 223);
+            LabelTurtlePosition.Name = "LabelTurtlePosition";
+            LabelTurtlePosition.Size = new Size(83, 15);
+            LabelTurtlePosition.TabIndex = 2;
+            LabelTurtlePosition.Text = "Turtle Position";
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 0);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(113, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(992, 217);
+            tableLayoutPanel3.TabIndex = 3;
             // 
             // tableLayoutPanel2
             // 
@@ -214,31 +255,6 @@
             BtnRotateAntiClockWise.UseVisualStyleBackColor = true;
             BtnRotateAntiClockWise.Click += BtnRotateAntiClockWise_Click;
             // 
-            // LabelTurtlePosition
-            // 
-            LabelTurtlePosition.AutoSize = true;
-            LabelTurtlePosition.Location = new Point(3, 223);
-            LabelTurtlePosition.Name = "LabelTurtlePosition";
-            LabelTurtlePosition.Size = new Size(83, 15);
-            LabelTurtlePosition.TabIndex = 2;
-            LabelTurtlePosition.Text = "Turtle Position";
-            // 
-            // tableLayoutPanel3
-            // 
-            tableLayoutPanel3.ColumnCount = 3;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 0);
-            tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(113, 3);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 1;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(992, 217);
-            tableLayoutPanel3.TabIndex = 3;
-            // 
             // tableLayoutPanel4
             // 
             tableLayoutPanel4.ColumnCount = 1;
@@ -269,8 +285,9 @@
             // TxtCommand
             // 
             TxtCommand.Location = new Point(3, 45);
+            TxtCommand.Multiline = true;
             TxtCommand.Name = "TxtCommand";
-            TxtCommand.Size = new Size(318, 23);
+            TxtCommand.Size = new Size(318, 36);
             TxtCommand.TabIndex = 1;
             // 
             // Form1
@@ -290,8 +307,8 @@
             tableLayoutPanel1.PerformLayout();
             TurtleBoard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PBTurtle).EndInit();
-            tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
             ResumeLayout(false);
@@ -318,5 +335,7 @@
         private TableLayoutPanel tableLayoutPanel4;
         private Label label1;
         private TextBox TxtCommand;
+        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem InstructionsToolStripMenuItem;
     }
 }
