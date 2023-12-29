@@ -43,11 +43,17 @@
             BtnRotateClockwise = new Button();
             BtnRotateAntiClockWise = new Button();
             LabelTurtlePosition = new Label();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            tableLayoutPanel4 = new TableLayoutPanel();
+            label1 = new Label();
+            TxtCommand = new TextBox();
             menuStrip1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PBTurtle).BeginInit();
             tableLayoutPanel2.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            tableLayoutPanel4.SuspendLayout();
             SuspendLayout();
             // 
             // menuStrip1
@@ -79,8 +85,8 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 85.71429F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.76190472F));
             tableLayoutPanel1.Controls.Add(TurtleBoard, 1, 1);
-            tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 0);
             tableLayoutPanel1.Controls.Add(LabelTurtlePosition, 0, 1);
+            tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 1, 0);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 24);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -137,21 +143,22 @@
             tableLayoutPanel2.Controls.Add(BtnLeftArrow, 0, 1);
             tableLayoutPanel2.Controls.Add(BtnRotateClockwise, 3, 0);
             tableLayoutPanel2.Controls.Add(BtnRotateAntiClockWise, 3, 2);
-            tableLayoutPanel2.Location = new Point(113, 3);
+            tableLayoutPanel2.Dock = DockStyle.Fill;
+            tableLayoutPanel2.Location = new Point(3, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 3;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.Size = new Size(306, 217);
+            tableLayoutPanel2.Size = new Size(324, 211);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // BtnUpArrow
             // 
             BtnUpArrow.Image = (Image)resources.GetObject("BtnUpArrow.Image");
-            BtnUpArrow.Location = new Point(79, 3);
+            BtnUpArrow.Location = new Point(84, 3);
             BtnUpArrow.Name = "BtnUpArrow";
-            BtnUpArrow.Size = new Size(70, 66);
+            BtnUpArrow.Size = new Size(70, 64);
             BtnUpArrow.TabIndex = 0;
             BtnUpArrow.UseVisualStyleBackColor = true;
             BtnUpArrow.Click += BtnUpArrow_Click;
@@ -159,9 +166,9 @@
             // BtnDownArrow
             // 
             BtnDownArrow.Image = (Image)resources.GetObject("BtnDownArrow.Image");
-            BtnDownArrow.Location = new Point(79, 147);
+            BtnDownArrow.Location = new Point(84, 143);
             BtnDownArrow.Name = "BtnDownArrow";
-            BtnDownArrow.Size = new Size(70, 66);
+            BtnDownArrow.Size = new Size(70, 65);
             BtnDownArrow.TabIndex = 1;
             BtnDownArrow.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnDownArrow.UseVisualStyleBackColor = true;
@@ -170,9 +177,9 @@
             // BtnRightArrow
             // 
             BtnRightArrow.Image = (Image)resources.GetObject("BtnRightArrow.Image");
-            BtnRightArrow.Location = new Point(155, 75);
+            BtnRightArrow.Location = new Point(165, 73);
             BtnRightArrow.Name = "BtnRightArrow";
-            BtnRightArrow.Size = new Size(70, 66);
+            BtnRightArrow.Size = new Size(70, 64);
             BtnRightArrow.TabIndex = 2;
             BtnRightArrow.UseVisualStyleBackColor = true;
             BtnRightArrow.Click += BtnRightArrow_Click;
@@ -180,9 +187,9 @@
             // BtnLeftArrow
             // 
             BtnLeftArrow.Image = (Image)resources.GetObject("BtnLeftArrow.Image");
-            BtnLeftArrow.Location = new Point(3, 75);
+            BtnLeftArrow.Location = new Point(3, 73);
             BtnLeftArrow.Name = "BtnLeftArrow";
-            BtnLeftArrow.Size = new Size(70, 66);
+            BtnLeftArrow.Size = new Size(70, 64);
             BtnLeftArrow.TabIndex = 3;
             BtnLeftArrow.UseVisualStyleBackColor = true;
             BtnLeftArrow.Click += BtnLeftArrow_Click;
@@ -190,9 +197,9 @@
             // BtnRotateClockwise
             // 
             BtnRotateClockwise.Image = (Image)resources.GetObject("BtnRotateClockwise.Image");
-            BtnRotateClockwise.Location = new Point(231, 3);
+            BtnRotateClockwise.Location = new Point(246, 3);
             BtnRotateClockwise.Name = "BtnRotateClockwise";
-            BtnRotateClockwise.Size = new Size(70, 66);
+            BtnRotateClockwise.Size = new Size(70, 64);
             BtnRotateClockwise.TabIndex = 4;
             BtnRotateClockwise.UseVisualStyleBackColor = true;
             BtnRotateClockwise.Click += BtnRotateClockwise_Click;
@@ -200,9 +207,9 @@
             // BtnRotateAntiClockWise
             // 
             BtnRotateAntiClockWise.Image = (Image)resources.GetObject("BtnRotateAntiClockWise.Image");
-            BtnRotateAntiClockWise.Location = new Point(231, 147);
+            BtnRotateAntiClockWise.Location = new Point(246, 143);
             BtnRotateAntiClockWise.Name = "BtnRotateAntiClockWise";
-            BtnRotateAntiClockWise.Size = new Size(70, 66);
+            BtnRotateAntiClockWise.Size = new Size(70, 65);
             BtnRotateAntiClockWise.TabIndex = 5;
             BtnRotateAntiClockWise.UseVisualStyleBackColor = true;
             BtnRotateAntiClockWise.Click += BtnRotateAntiClockWise_Click;
@@ -215,6 +222,56 @@
             LabelTurtlePosition.Size = new Size(83, 15);
             LabelTurtlePosition.TabIndex = 2;
             LabelTurtlePosition.Text = "Turtle Position";
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 0);
+            tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(113, 3);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 1;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel3.Size = new Size(992, 217);
+            tableLayoutPanel3.TabIndex = 3;
+            // 
+            // tableLayoutPanel4
+            // 
+            tableLayoutPanel4.ColumnCount = 1;
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel4.Controls.Add(label1, 0, 0);
+            tableLayoutPanel4.Controls.Add(TxtCommand, 0, 1);
+            tableLayoutPanel4.Location = new Point(333, 3);
+            tableLayoutPanel4.Name = "tableLayoutPanel4";
+            tableLayoutPanel4.RowCount = 5;
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
+            tableLayoutPanel4.Size = new Size(324, 211);
+            tableLayoutPanel4.TabIndex = 2;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Location = new Point(3, 0);
+            label1.Name = "label1";
+            label1.Size = new Size(262, 42);
+            label1.TabIndex = 0;
+            label1.Text = "Enter your command below";
+            // 
+            // TxtCommand
+            // 
+            TxtCommand.Location = new Point(3, 45);
+            TxtCommand.Name = "TxtCommand";
+            TxtCommand.Size = new Size(318, 23);
+            TxtCommand.TabIndex = 1;
             // 
             // Form1
             // 
@@ -234,6 +291,9 @@
             TurtleBoard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PBTurtle).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            tableLayoutPanel4.ResumeLayout(false);
+            tableLayoutPanel4.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -254,5 +314,9 @@
         private Button BtnRotateClockwise;
         private Button BtnRotateAntiClockWise;
         private Label LabelTurtlePosition;
+        private TableLayoutPanel tableLayoutPanel3;
+        private TableLayoutPanel tableLayoutPanel4;
+        private Label label1;
+        private TextBox TxtCommand;
     }
 }
