@@ -2,6 +2,8 @@ namespace TurtleCommandApp
 {
     public partial class Form1 : Form
     {
+        private static string _imagePosition = "Top";
+
         public Form1()
         {
             InitializeComponent();
@@ -62,6 +64,26 @@ namespace TurtleCommandApp
         {
             // rotate the turtle clockwise by 90 degrees from the current position
             PBTurtle.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+
+            // keep track of the current position of the turtle in _imagePosition variable
+            if (_imagePosition == "Top")
+            {
+                _imagePosition = "Right";
+            }
+            else if (_imagePosition == "Right")
+            {
+                _imagePosition = "Bottom";
+            }
+            else if (_imagePosition == "Bottom")
+            {
+                _imagePosition = "Left";
+            }
+            else if (_imagePosition == "Left")
+            {
+                _imagePosition = "Top";
+            }
+
+            LabelTurtlePosition.Text = _imagePosition;
             PBTurtle.Refresh();
         }
 
@@ -69,6 +91,26 @@ namespace TurtleCommandApp
         {
             // rotate the turtle anti-clockwise by 90 degrees from the current position
             PBTurtle.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+
+            // keep track of the current position of the turtle in _imagePosition variable
+            if (_imagePosition == "Top")
+            {
+                _imagePosition = "Left";
+            }
+            else if (_imagePosition == "Right")
+            {
+                _imagePosition = "Top";
+            }
+            else if (_imagePosition == "Bottom")
+            {
+                _imagePosition = "Right";
+            }
+            else if (_imagePosition == "Left")
+            {
+                _imagePosition = "Bottom";
+            }
+
+            LabelTurtlePosition.Text = _imagePosition;
             PBTurtle.Refresh();
         }
     }

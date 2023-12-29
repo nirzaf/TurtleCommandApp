@@ -42,6 +42,7 @@
             BtnLeftArrow = new Button();
             BtnRotateClockwise = new Button();
             BtnRotateAntiClockWise = new Button();
+            LabelTurtlePosition = new Label();
             menuStrip1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
@@ -74,11 +75,12 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 90F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.523809F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 85.71429F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.76190472F));
             tableLayoutPanel1.Controls.Add(TurtleBoard, 1, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel2, 1, 0);
+            tableLayoutPanel1.Controls.Add(LabelTurtlePosition, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 24);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -97,14 +99,14 @@
             TurtleBoard.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             TurtleBoard.Controls.Add(PBTurtle, 0, 2);
             TurtleBoard.Dock = DockStyle.Fill;
-            TurtleBoard.Location = new Point(61, 226);
+            TurtleBoard.Location = new Point(113, 226);
             TurtleBoard.Name = "TurtleBoard";
             TurtleBoard.RowCount = 4;
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            TurtleBoard.Size = new Size(1042, 517);
+            TurtleBoard.Size = new Size(992, 517);
             TurtleBoard.TabIndex = 0;
             // 
             // PBTurtle
@@ -116,7 +118,7 @@
             PBTurtle.InitialImage = Properties.Resources.turtle;
             PBTurtle.Location = new Point(3, 261);
             PBTurtle.Name = "PBTurtle";
-            PBTurtle.Size = new Size(250, 123);
+            PBTurtle.Size = new Size(242, 123);
             PBTurtle.SizeMode = PictureBoxSizeMode.Zoom;
             PBTurtle.TabIndex = 0;
             PBTurtle.TabStop = false;
@@ -135,7 +137,7 @@
             tableLayoutPanel2.Controls.Add(BtnLeftArrow, 0, 1);
             tableLayoutPanel2.Controls.Add(BtnRotateClockwise, 3, 0);
             tableLayoutPanel2.Controls.Add(BtnRotateAntiClockWise, 3, 2);
-            tableLayoutPanel2.Location = new Point(61, 3);
+            tableLayoutPanel2.Location = new Point(113, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 3;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
@@ -205,6 +207,15 @@
             BtnRotateAntiClockWise.UseVisualStyleBackColor = true;
             BtnRotateAntiClockWise.Click += BtnRotateAntiClockWise_Click;
             // 
+            // LabelTurtlePosition
+            // 
+            LabelTurtlePosition.AutoSize = true;
+            LabelTurtlePosition.Location = new Point(3, 223);
+            LabelTurtlePosition.Name = "LabelTurtlePosition";
+            LabelTurtlePosition.Size = new Size(83, 15);
+            LabelTurtlePosition.TabIndex = 2;
+            LabelTurtlePosition.Text = "Turtle Position";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -219,6 +230,7 @@
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             TurtleBoard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PBTurtle).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
@@ -241,5 +253,6 @@
         private Button BtnLeftArrow;
         private Button BtnRotateClockwise;
         private Button BtnRotateAntiClockWise;
+        private Label LabelTurtlePosition;
     }
 }
