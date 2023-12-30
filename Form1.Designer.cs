@@ -37,6 +37,10 @@
             tableLayoutPanel1 = new TableLayoutPanel();
             TurtleBoard = new TableLayoutPanel();
             PBTurtle = new PictureBox();
+            PbPool = new PictureBox();
+            PbCake = new PictureBox();
+            PbCar = new PictureBox();
+            PbTree = new PictureBox();
             LabelTurtlePosition = new Label();
             tableLayoutPanel3 = new TableLayoutPanel();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -54,6 +58,10 @@
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)PBTurtle).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PbPool).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PbCake).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PbCar).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)PbTree).BeginInit();
             tableLayoutPanel3.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
@@ -78,7 +86,7 @@
             // NewGameToolStripMenuItem
             // 
             NewGameToolStripMenuItem.Name = "NewGameToolStripMenuItem";
-            NewGameToolStripMenuItem.Size = new Size(180, 22);
+            NewGameToolStripMenuItem.Size = new Size(132, 22);
             NewGameToolStripMenuItem.Text = "New Game";
             NewGameToolStripMenuItem.Click += NewGameToolStripMenuItem_Click;
             // 
@@ -99,9 +107,9 @@
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 3;
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.523809F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 85.71429F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.76190472F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.923105F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 82.3874054F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.68949127F));
             tableLayoutPanel1.Controls.Add(TurtleBoard, 1, 1);
             tableLayoutPanel1.Controls.Add(LabelTurtlePosition, 0, 1);
             tableLayoutPanel1.Controls.Add(tableLayoutPanel3, 1, 0);
@@ -121,16 +129,20 @@
             TurtleBoard.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             TurtleBoard.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
             TurtleBoard.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            TurtleBoard.Controls.Add(PBTurtle, 0, 2);
+            TurtleBoard.Controls.Add(PBTurtle, 0, 3);
+            TurtleBoard.Controls.Add(PbPool, 0, 0);
+            TurtleBoard.Controls.Add(PbCake, 3, 0);
+            TurtleBoard.Controls.Add(PbCar, 3, 3);
+            TurtleBoard.Controls.Add(PbTree, 2, 1);
             TurtleBoard.Dock = DockStyle.Fill;
-            TurtleBoard.Location = new Point(113, 226);
+            TurtleBoard.Location = new Point(118, 226);
             TurtleBoard.Name = "TurtleBoard";
             TurtleBoard.RowCount = 4;
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             TurtleBoard.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            TurtleBoard.Size = new Size(992, 517);
+            TurtleBoard.Size = new Size(953, 517);
             TurtleBoard.TabIndex = 0;
             // 
             // PBTurtle
@@ -140,13 +152,53 @@
             PBTurtle.ErrorImage = Properties.Resources.turtle;
             PBTurtle.Image = Properties.Resources.turtle;
             PBTurtle.InitialImage = Properties.Resources.turtle;
-            PBTurtle.Location = new Point(3, 261);
+            PBTurtle.Location = new Point(3, 390);
             PBTurtle.Name = "PBTurtle";
-            PBTurtle.Size = new Size(242, 123);
+            PBTurtle.Size = new Size(232, 123);
             PBTurtle.SizeMode = PictureBoxSizeMode.Zoom;
             PBTurtle.TabIndex = 0;
             PBTurtle.TabStop = false;
             PBTurtle.WaitOnLoad = true;
+            // 
+            // PbPool
+            // 
+            PbPool.Image = (Image)resources.GetObject("PbPool.Image");
+            PbPool.Location = new Point(3, 3);
+            PbPool.Name = "PbPool";
+            PbPool.Size = new Size(232, 123);
+            PbPool.SizeMode = PictureBoxSizeMode.Zoom;
+            PbPool.TabIndex = 1;
+            PbPool.TabStop = false;
+            // 
+            // PbCake
+            // 
+            PbCake.Image = (Image)resources.GetObject("PbCake.Image");
+            PbCake.Location = new Point(717, 3);
+            PbCake.Name = "PbCake";
+            PbCake.Size = new Size(233, 123);
+            PbCake.SizeMode = PictureBoxSizeMode.Zoom;
+            PbCake.TabIndex = 2;
+            PbCake.TabStop = false;
+            // 
+            // PbCar
+            // 
+            PbCar.Image = (Image)resources.GetObject("PbCar.Image");
+            PbCar.Location = new Point(717, 390);
+            PbCar.Name = "PbCar";
+            PbCar.Size = new Size(233, 124);
+            PbCar.SizeMode = PictureBoxSizeMode.Zoom;
+            PbCar.TabIndex = 3;
+            PbCar.TabStop = false;
+            // 
+            // PbTree
+            // 
+            PbTree.Image = (Image)resources.GetObject("PbTree.Image");
+            PbTree.Location = new Point(479, 132);
+            PbTree.Name = "PbTree";
+            PbTree.Size = new Size(232, 123);
+            PbTree.SizeMode = PictureBoxSizeMode.Zoom;
+            PbTree.TabIndex = 4;
+            PbTree.TabStop = false;
             // 
             // LabelTurtlePosition
             // 
@@ -165,11 +217,11 @@
             tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 0);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(113, 3);
+            tableLayoutPanel3.Location = new Point(118, 3);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 1;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
-            tableLayoutPanel3.Size = new Size(992, 217);
+            tableLayoutPanel3.Size = new Size(953, 217);
             tableLayoutPanel3.TabIndex = 3;
             // 
             // tableLayoutPanel2
@@ -192,15 +244,15 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.Size = new Size(291, 211);
+            tableLayoutPanel2.Size = new Size(279, 211);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // BtnUpArrow
             // 
             BtnUpArrow.Image = (Image)resources.GetObject("BtnUpArrow.Image");
-            BtnUpArrow.Location = new Point(75, 3);
+            BtnUpArrow.Location = new Point(72, 3);
             BtnUpArrow.Name = "BtnUpArrow";
-            BtnUpArrow.Size = new Size(66, 64);
+            BtnUpArrow.Size = new Size(63, 64);
             BtnUpArrow.TabIndex = 0;
             BtnUpArrow.UseVisualStyleBackColor = true;
             BtnUpArrow.Click += BtnUpArrow_Click;
@@ -208,9 +260,9 @@
             // BtnDownArrow
             // 
             BtnDownArrow.Image = (Image)resources.GetObject("BtnDownArrow.Image");
-            BtnDownArrow.Location = new Point(75, 143);
+            BtnDownArrow.Location = new Point(72, 143);
             BtnDownArrow.Name = "BtnDownArrow";
-            BtnDownArrow.Size = new Size(66, 65);
+            BtnDownArrow.Size = new Size(63, 65);
             BtnDownArrow.TabIndex = 1;
             BtnDownArrow.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnDownArrow.UseVisualStyleBackColor = true;
@@ -219,9 +271,9 @@
             // BtnRightArrow
             // 
             BtnRightArrow.Image = (Image)resources.GetObject("BtnRightArrow.Image");
-            BtnRightArrow.Location = new Point(147, 73);
+            BtnRightArrow.Location = new Point(141, 73);
             BtnRightArrow.Name = "BtnRightArrow";
-            BtnRightArrow.Size = new Size(66, 64);
+            BtnRightArrow.Size = new Size(63, 64);
             BtnRightArrow.TabIndex = 2;
             BtnRightArrow.UseVisualStyleBackColor = true;
             BtnRightArrow.Click += BtnRightArrow_Click;
@@ -231,7 +283,7 @@
             BtnLeftArrow.Image = (Image)resources.GetObject("BtnLeftArrow.Image");
             BtnLeftArrow.Location = new Point(3, 73);
             BtnLeftArrow.Name = "BtnLeftArrow";
-            BtnLeftArrow.Size = new Size(66, 64);
+            BtnLeftArrow.Size = new Size(63, 64);
             BtnLeftArrow.TabIndex = 3;
             BtnLeftArrow.UseVisualStyleBackColor = true;
             BtnLeftArrow.Click += BtnLeftArrow_Click;
@@ -239,9 +291,9 @@
             // BtnRotateClockwise
             // 
             BtnRotateClockwise.Image = (Image)resources.GetObject("BtnRotateClockwise.Image");
-            BtnRotateClockwise.Location = new Point(219, 3);
+            BtnRotateClockwise.Location = new Point(210, 3);
             BtnRotateClockwise.Name = "BtnRotateClockwise";
-            BtnRotateClockwise.Size = new Size(69, 64);
+            BtnRotateClockwise.Size = new Size(66, 64);
             BtnRotateClockwise.TabIndex = 4;
             BtnRotateClockwise.UseVisualStyleBackColor = true;
             BtnRotateClockwise.Click += BtnRotateClockwise_Click;
@@ -249,9 +301,9 @@
             // BtnRotateAntiClockWise
             // 
             BtnRotateAntiClockWise.Image = (Image)resources.GetObject("BtnRotateAntiClockWise.Image");
-            BtnRotateAntiClockWise.Location = new Point(219, 143);
+            BtnRotateAntiClockWise.Location = new Point(210, 143);
             BtnRotateAntiClockWise.Name = "BtnRotateAntiClockWise";
-            BtnRotateAntiClockWise.Size = new Size(69, 65);
+            BtnRotateAntiClockWise.Size = new Size(66, 65);
             BtnRotateAntiClockWise.TabIndex = 5;
             BtnRotateAntiClockWise.UseVisualStyleBackColor = true;
             BtnRotateAntiClockWise.Click += BtnRotateAntiClockWise_Click;
@@ -264,7 +316,7 @@
             tableLayoutPanel4.Controls.Add(TextBoxCommandInstructions, 0, 1);
             tableLayoutPanel4.Controls.Add(BtnExecuteCommand, 0, 2);
             tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(300, 3);
+            tableLayoutPanel4.Location = new Point(288, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 5;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
@@ -272,7 +324,7 @@
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel4.Size = new Size(689, 211);
+            tableLayoutPanel4.Size = new Size(662, 211);
             tableLayoutPanel4.TabIndex = 2;
             // 
             // label1
@@ -282,7 +334,7 @@
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(683, 42);
+            label1.Size = new Size(656, 42);
             label1.TabIndex = 0;
             label1.Text = "Enter your command below";
             // 
@@ -292,7 +344,7 @@
             TextBoxCommandInstructions.Location = new Point(3, 45);
             TextBoxCommandInstructions.Multiline = true;
             TextBoxCommandInstructions.Name = "TextBoxCommandInstructions";
-            TextBoxCommandInstructions.Size = new Size(683, 36);
+            TextBoxCommandInstructions.Size = new Size(656, 36);
             TextBoxCommandInstructions.TabIndex = 1;
             // 
             // BtnExecuteCommand
@@ -323,6 +375,10 @@
             tableLayoutPanel1.PerformLayout();
             TurtleBoard.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)PBTurtle).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbPool).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbCake).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbCar).EndInit();
+            ((System.ComponentModel.ISupportInitialize)PbTree).EndInit();
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
@@ -354,5 +410,9 @@
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem InstructionsToolStripMenuItem;
         private Button BtnExecuteCommand;
+        private PictureBox PbPool;
+        private PictureBox PbCake;
+        private PictureBox PbCar;
+        private PictureBox PbTree;
     }
 }
