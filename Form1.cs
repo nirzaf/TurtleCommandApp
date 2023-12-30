@@ -104,35 +104,20 @@ namespace TurtleCommandApp
 
         private void BtnExecuteCommand_Click(object sender, EventArgs e)
         {
-            /*
-             Fetch the command text From TextBoxCommandInstructions.Text
-
-            Begin the command always with 'cs' to clear the screen
-
-            To move the turtle forward by 1 step command should be 'fd'
-
-            To move the turtle backward by 1 step command should be 'bk'
-
-            To turn the turtle left direction command should be 'lt'
-
-            To turn the turtle right direction command should be 'rt'
-
-            Complete the command with 'go' command click the BtnExecuteCommand to move the turtle to the desired location
-
-            Add a number with a command to move the turtle multiple times
-
-            PBTurtle direction can be detected by _imagePosition variable
-
-            Example: cs, fd 2, rt, fd 3, go
-
-            if no number added along with the command it should move only a step
-
-            Use the buttons BtnUpArrow, BtnRightArrow, BtnDownArrow, BtnLeftArrow to move the button
-
-
-             */
-
             string commandText = TextBoxCommandInstructions.Text;
+            //if no cs in the beginning of the command, then show in MessageBox as Invalid Command
+            if (!commandText.Trim().StartsWith("cs"))
+            {
+                MessageBox.Show(@"Invalid Command");
+                return;
+            }
+            //if no go in the end of the command, then show in MessageBox as Invalid Command
+            if (!commandText.Trim().EndsWith("go"))
+            {
+                MessageBox.Show(@"Invalid Command");
+                return;
+            }
+            
             string[] commands = commandText.Split(',');
 
             foreach (string command in commands)
@@ -149,63 +134,85 @@ namespace TurtleCommandApp
                 }
                 else if (action == "fd")
                 {
-                    if (_imagePosition == "Top")
+                    switch (_imagePosition)
                     {
-                        for (int i = 0; i < steps; i++)
+                        case "Top":
                         {
-                            BtnUpArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnUpArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
-                    }
-                    else if (_imagePosition == "Right")
-                    {
-                        for (int i = 0; i < steps; i++)
+                        case "Right":
                         {
-                            BtnRightArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnRightArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
-                    }
-                    else if (_imagePosition == "Bottom")
-                    {
-                        for (int i = 0; i < steps; i++)
+                        case "Bottom":
                         {
-                            BtnDownArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnDownArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
-                    }
-                    else if (_imagePosition == "Left")
-                    {
-                        for (int i = 0; i < steps; i++)
+                        case "Left":
                         {
-                            BtnLeftArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnLeftArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
                     }
                 }
                 else if (action == "bk")
                 {
-                    if (_imagePosition == "Top")
+                    switch (_imagePosition)
                     {
-                        for (int i = 0; i < steps; i++)
+                        case "Top":
                         {
-                            BtnDownArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnDownArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
-                    }
-                    else if (_imagePosition == "Right")
-                    {
-                        for (int i = 0; i < steps; i++)
+                        case "Right":
                         {
-                            BtnLeftArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnLeftArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
-                    }
-                    else if (_imagePosition == "Bottom")
-                    {
-                        for (int i = 0; i < steps; i++)
+                        case "Bottom":
                         {
-                            BtnUpArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnUpArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
-                    }
-                    else if (_imagePosition == "Left")
-                    {
-                        for (int i = 0; i < steps; i++)
+                        case "Left":
                         {
-                            BtnRightArrow_Click(sender, e);
+                            for (int i = 0; i < steps; i++)
+                            {
+                                BtnRightArrow_Click(sender, e);
+                            }
+
+                            break;
                         }
                     }
                 }
@@ -237,7 +244,6 @@ namespace TurtleCommandApp
 
             switch (_imagePosition)
             {
-                // reset the image position
                 case "Right":
                     BtnRotateAntiClockWise_Click(sender, e);
                     break;
