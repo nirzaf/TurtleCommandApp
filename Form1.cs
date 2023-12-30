@@ -1,3 +1,5 @@
+using Timer = System.Threading.Timer;
+
 namespace TurtleCommandApp
 {
     public partial class Form1 : Form
@@ -20,8 +22,7 @@ namespace TurtleCommandApp
 
         private void NewGame()
         {
-            TurtleBoard.SetRow(PBTurtle, 3);
-            TurtleBoard.SetColumn(PBTurtle, 0);
+            TurtleBoard.Controls.Add(PBTurtle, 0, 3);
             TurtleBoard.BackColor = Color.Black;
             TurtleBoard.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
             LabelTurtlePosition.Visible = false;
@@ -32,12 +33,18 @@ namespace TurtleCommandApp
         {
             // Place the PictureBoxes PbPool, PbCar, PbTree, PbCake in random positions on the table layout panel TurtleBoard
             Random random = new();
-            int[] positions = [0, 1, 2, 3];
-            PictureBox[] pictureBoxes = [PbPool, PbCar, PbTree, PbCake];
+            int[] positions = { 0, 1, 2, 3 };
+            PictureBox[] pictureBoxes = { PbPool, PbCar, PbTree, PbCake };
             foreach (PictureBox pictureBox in pictureBoxes)
             {
-                int randomRow = random.Next(positions.Length);
-                int randomColumn = random.Next(positions.Length);
+                int randomRow;
+                int randomColumn;
+                do
+                {
+                    randomRow = random.Next(positions.Length);
+                    randomColumn = random.Next(positions.Length);
+                } while (randomColumn == 0 && randomRow == 3); // Repeat if the position is column 0, row 3
+
                 TurtleBoard.SetRow(pictureBox, randomRow);
                 TurtleBoard.SetColumn(pictureBox, randomColumn);
             }
@@ -57,17 +64,34 @@ namespace TurtleCommandApp
             _treePosition = (treeColumn, treeRow);
             _cakePosition = (cakeColumn, cakeRow);
         }
-
-        private void BtnDownArrow_Click(object sender, EventArgs e)
+        
+                
+        private void OnTimerColumnTickPlus(object? o, EventArgs eventArgs, int column, System.Windows.Forms.Timer timer1)
         {
-            // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
-            int y = TurtleBoard.GetRow(PBTurtle);
-
-            // move the turtle down one row
-            if (y < 3)
-            {
-                TurtleBoard.SetRow(PBTurtle, y + 1);
-            }
+            timer1.Interval = 500;
+            TurtleBoard.SetColumn(PBTurtle, column + 1);
+            timer1.Stop();
+        }
+        
+        private void OnTimerRowTickPlus(object? o, EventArgs eventArgs, int row, System.Windows.Forms.Timer timer1)
+        {
+            timer1.Interval = 500;
+            TurtleBoard.SetRow(PBTurtle, row + 1);
+            timer1.Stop();
+        }
+        
+        private void OnTimerColumnTickMinus(object? o, EventArgs eventArgs, int column, System.Windows.Forms.Timer timer1)
+        {
+            timer1.Interval = 500;
+            TurtleBoard.SetColumn(PBTurtle, column - 1);
+            timer1.Stop();
+        }
+        
+        private void OnTimerRowTickMinus(object? o, EventArgs eventArgs, int row, System.Windows.Forms.Timer timer1)
+        {
+            timer1.Interval = 500;
+            TurtleBoard.SetRow(PBTurtle, row - 1);
+            timer1.Stop();
         }
 
         private void BtnRightArrow_Click(object sender, EventArgs e)
@@ -75,31 +99,76 @@ namespace TurtleCommandApp
             // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
             int column = TurtleBoard.GetColumn(PBTurtle);
             int row = TurtleBoard.GetRow(PBTurtle);
-            if (column < 3)
+            if (column >= 3) return;
+            //check if next position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+            if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row) && _cakePosition != (column + 1, row) && _poolPosition != (column + 1, row))
             {
-                //check if next position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
-                if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row) && _cakePosition != (column + 1, row) && _poolPosition != (column + 1, row))
+                System.Windows.Forms.Timer timer1 = new();
+                timer1.Tick += (s, args) => OnTimerColumnTickPlus(s, args, column, timer1);
+                timer1.Start();
+            }
+            else
+            {
+                if (_carPosition == (column + 1, row))
                 {
-                    TurtleBoard.SetColumn(PBTurtle, column + 1);
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the car");
                 }
-                else
+                else if (_treePosition == (column + 1, row))
                 {
-                    if (_carPosition == (column + 1, row))
-                    {
-                        MessageBox.Show(@"You hit the car");
-                    }
-                    else if (_treePosition == (column + 1, row))
-                    {
-                        MessageBox.Show(@"You hit the tree");
-                    }
-                    else if (_cakePosition == (column + 1, row))
-                    {
-                        MessageBox.Show(@"You hit the cake");
-                    }
-                    else if (_poolPosition == (column + 1, row))
-                    {
-                        MessageBox.Show(@"You hit the pool");
-                    }
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the tree");
+                }
+                else if (_cakePosition == (column + 1, row))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the cake");
+                }
+                else if (_poolPosition == (column + 1, row))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the pool");
+                }
+            }
+        }
+
+        private void BtnDownArrow_Click(object sender, EventArgs e)
+        {
+            // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
+            int column = TurtleBoard.GetColumn(PBTurtle);
+            int row = TurtleBoard.GetRow(PBTurtle);
+
+            if (row >= 3) return;
+            //check if next position of row has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+            if (_carPosition != (column, row + 1) && _treePosition != (column, row + 1) &&
+                _cakePosition != (column, row + 1) && _poolPosition != (column, row + 1))
+            {
+                // TurtleBoard.SetRow(PBTurtle, row + 1);
+                System.Windows.Forms.Timer timer1 = new();
+                timer1.Tick += (s, args) => OnTimerRowTickPlus(s, args, row, timer1);
+                timer1.Start();
+            }
+            else
+            {
+                if (_carPosition == (column, row + 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the car");
+                }
+                else if (_treePosition == (column, row + 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the tree");
+                }
+                else if (_cakePosition == (column, row + 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the cake");
+                }
+                else if (_poolPosition == (column, row + 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the pool");
                 }
             }
         }
@@ -107,23 +176,78 @@ namespace TurtleCommandApp
         private void BtnLeftArrow_Click(object sender, EventArgs e)
         {
             // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
-            int x = TurtleBoard.GetColumn(PBTurtle);
-            if (x > 0)
+            int column = TurtleBoard.GetColumn(PBTurtle);
+            int row = TurtleBoard.GetRow(PBTurtle);
+            if (column <= 0) return;
+            //check if previous position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+            if (_carPosition != (column - 1, row) && _treePosition != (column - 1, row) && _cakePosition != (column - 1, row) && _poolPosition != (column - 1, row))
             {
-                TurtleBoard.SetColumn(PBTurtle, x - 1);
+                // TurtleBoard.SetColumn(PBTurtle, column - 1);
+                System.Windows.Forms.Timer timer1 = new();
+                timer1.Tick += (s, args) => OnTimerColumnTickMinus(s, args, column, timer1);
+                timer1.Start();
+            }
+            else
+            {
+                if (_carPosition == (column - 1, row))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the car");
+                }
+                else if (_treePosition == (column - 1, row))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the tree");
+                }
+                else if (_cakePosition == (column - 1, row))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the cake");
+                }
+                else if (_poolPosition == (column - 1, row))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the pool");
+                }
             }
         }
 
         private void BtnUpArrow_Click(object sender, EventArgs e)
         {
             // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
-            int y = TurtleBoard.GetRow(PBTurtle);
-
-            // move the turtle down one row
-            if (y > 0)
+            int column = TurtleBoard.GetColumn(PBTurtle);
+            int row = TurtleBoard.GetRow(PBTurtle);
+            if (row <= 0) return;
+            //check if previous position of row has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+            if (_carPosition != (column, row - 1) && _treePosition != (column, row - 1) && _cakePosition != (column, row - 1) && _poolPosition != (column, row - 1))
             {
-                Task.Delay(1500);
-                TurtleBoard.SetRow(PBTurtle, y - 1);
+                // TurtleBoard.SetRow(PBTurtle, row - 1);
+                System.Windows.Forms.Timer timer1 = new();
+                timer1.Tick += (s, args) => OnTimerRowTickMinus(s, args, row, timer1);
+                timer1.Start();
+            }
+            else
+            {
+                if (_carPosition == (column, row - 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the car");
+                }
+                else if (_treePosition == (column, row - 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the tree");
+                }
+                else if (_cakePosition == (column, row - 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the cake");
+                }
+                else if (_poolPosition == (column, row - 1))
+                {
+                    TurtleBoard.Controls.Remove(PBTurtle);
+                    MessageBox.Show(@"You got the pool");
+                }
             }
         }
 
@@ -202,41 +326,41 @@ namespace TurtleCommandApp
                     switch (_imagePosition)
                     {
                         case "Top":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnUpArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnUpArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case "Right":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnRightArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnRightArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case "Bottom":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnDownArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnDownArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case "Left":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnLeftArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnLeftArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                     }
                 }
                 else if (action == "bk")
@@ -244,41 +368,41 @@ namespace TurtleCommandApp
                     switch (_imagePosition)
                     {
                         case "Top":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnDownArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnDownArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case "Right":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnLeftArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnLeftArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case "Bottom":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnUpArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnUpArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                         case "Left":
-                        {
-                            for (int i = 0; i < steps; i++)
                             {
-                                BtnRightArrow_Click(sender, e);
-                            }
+                                for (int i = 0; i < steps; i++)
+                                {
+                                    BtnRightArrow_Click(sender, e);
+                                }
 
-                            break;
-                        }
+                                break;
+                            }
                     }
                 }
                 else if (action == "lt")
@@ -322,6 +446,11 @@ namespace TurtleCommandApp
 
             TextBoxCommandInstructions.Text = "";
             TextBoxCommandInstructions.Focus();
+        }
+
+        private void Timer1_Tick(object sender, EventArgs e)
+        {
+
         }
     }
 }

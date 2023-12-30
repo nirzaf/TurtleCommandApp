@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             toolStripMenuItem1 = new ToolStripMenuItem();
@@ -54,6 +55,7 @@
             label1 = new Label();
             TextBoxCommandInstructions = new TextBox();
             BtnExecuteCommand = new Button();
+            Timer1 = new System.Windows.Forms.Timer(components);
             menuStrip1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
@@ -358,6 +360,11 @@
             BtnExecuteCommand.UseVisualStyleBackColor = true;
             BtnExecuteCommand.Click += BtnExecuteCommand_Click;
             // 
+            // Timer1
+            // 
+            Timer1.Interval = 500;
+            Timer1.Tick += Timer1_Tick;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -414,5 +421,6 @@
         private PictureBox PbCake;
         private PictureBox PbCar;
         private PictureBox PbTree;
+        private System.Windows.Forms.Timer Timer1;
     }
 }
