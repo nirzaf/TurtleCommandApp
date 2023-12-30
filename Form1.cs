@@ -141,7 +141,8 @@ namespace TurtleCommandApp
 
                 if (action == "cs")
                 {
-                    // Clear the screen
+                    TurtleBoard.SetRow(PBTurtle, 3);
+                    TurtleBoard.SetColumn(PBTurtle, 0);
                 }
                 else if (action == "fd")
                 {
@@ -224,6 +225,30 @@ namespace TurtleCommandApp
                     break;
                 }
             }
+        }
+
+        private void NewGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            TurtleBoard.SetRow(PBTurtle, 3);
+            TurtleBoard.SetColumn(PBTurtle, 0);
+
+            switch (_imagePosition)
+            {
+                // reset the image position
+                case "Right":
+                    BtnRotateAntiClockWise_Click(sender, e);
+                    break;
+                case "Bottom":
+                    BtnRotateAntiClockWise_Click(sender, e);
+                    BtnRotateAntiClockWise_Click(sender, e);
+                    break;
+                case "Left":
+                    BtnRotateClockwise_Click(sender, e);
+                    break;
+            }
+            
+            TextBoxCommandInstructions.Text = "";
+            TextBoxCommandInstructions.Focus();
         }
     }
 }

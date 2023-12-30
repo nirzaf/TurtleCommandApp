@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             menuStrip1 = new MenuStrip();
             toolStripMenuItem1 = new ToolStripMenuItem();
-            newGameToolStripMenuItem = new ToolStripMenuItem();
+            NewGameToolStripMenuItem = new ToolStripMenuItem();
             aboutToolStripMenuItem = new ToolStripMenuItem();
             InstructionsToolStripMenuItem = new ToolStripMenuItem();
             tableLayoutPanel1 = new TableLayoutPanel();
@@ -70,16 +70,17 @@
             // 
             // toolStripMenuItem1
             // 
-            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { newGameToolStripMenuItem });
+            toolStripMenuItem1.DropDownItems.AddRange(new ToolStripItem[] { NewGameToolStripMenuItem });
             toolStripMenuItem1.Name = "toolStripMenuItem1";
             toolStripMenuItem1.Size = new Size(37, 20);
             toolStripMenuItem1.Text = "File";
             // 
-            // newGameToolStripMenuItem
+            // NewGameToolStripMenuItem
             // 
-            newGameToolStripMenuItem.Name = "newGameToolStripMenuItem";
-            newGameToolStripMenuItem.Size = new Size(132, 22);
-            newGameToolStripMenuItem.Text = "New Game";
+            NewGameToolStripMenuItem.Name = "NewGameToolStripMenuItem";
+            NewGameToolStripMenuItem.Size = new Size(180, 22);
+            NewGameToolStripMenuItem.Text = "New Game";
+            NewGameToolStripMenuItem.Click += NewGameToolStripMenuItem_Click;
             // 
             // aboutToolStripMenuItem
             // 
@@ -334,7 +335,7 @@
 
         private MenuStrip menuStrip1;
         private ToolStripMenuItem toolStripMenuItem1;
-        private ToolStripMenuItem newGameToolStripMenuItem;
+        private ToolStripMenuItem NewGameToolStripMenuItem;
         private TableLayoutPanel tableLayoutPanel1;
         private TableLayoutPanel TurtleBoard;
         private PictureBox PBTurtle;
