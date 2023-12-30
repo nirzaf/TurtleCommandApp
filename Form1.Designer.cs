@@ -48,7 +48,8 @@
             BtnRotateAntiClockWise = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
             label1 = new Label();
-            TxtCommand = new TextBox();
+            TextBoxCommandInstructions = new TextBox();
+            BtnExecuteCommand = new Button();
             menuStrip1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
@@ -157,10 +158,9 @@
             // 
             // tableLayoutPanel3
             // 
-            tableLayoutPanel3.ColumnCount = 3;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 33.3333321F));
+            tableLayoutPanel3.ColumnCount = 2;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 30F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 70F));
             tableLayoutPanel3.Controls.Add(tableLayoutPanel2, 0, 0);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
@@ -191,15 +191,15 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 33.3333321F));
-            tableLayoutPanel2.Size = new Size(324, 211);
+            tableLayoutPanel2.Size = new Size(291, 211);
             tableLayoutPanel2.TabIndex = 1;
             // 
             // BtnUpArrow
             // 
             BtnUpArrow.Image = (Image)resources.GetObject("BtnUpArrow.Image");
-            BtnUpArrow.Location = new Point(84, 3);
+            BtnUpArrow.Location = new Point(75, 3);
             BtnUpArrow.Name = "BtnUpArrow";
-            BtnUpArrow.Size = new Size(70, 64);
+            BtnUpArrow.Size = new Size(66, 64);
             BtnUpArrow.TabIndex = 0;
             BtnUpArrow.UseVisualStyleBackColor = true;
             BtnUpArrow.Click += BtnUpArrow_Click;
@@ -207,9 +207,9 @@
             // BtnDownArrow
             // 
             BtnDownArrow.Image = (Image)resources.GetObject("BtnDownArrow.Image");
-            BtnDownArrow.Location = new Point(84, 143);
+            BtnDownArrow.Location = new Point(75, 143);
             BtnDownArrow.Name = "BtnDownArrow";
-            BtnDownArrow.Size = new Size(70, 65);
+            BtnDownArrow.Size = new Size(66, 65);
             BtnDownArrow.TabIndex = 1;
             BtnDownArrow.TextImageRelation = TextImageRelation.ImageAboveText;
             BtnDownArrow.UseVisualStyleBackColor = true;
@@ -218,9 +218,9 @@
             // BtnRightArrow
             // 
             BtnRightArrow.Image = (Image)resources.GetObject("BtnRightArrow.Image");
-            BtnRightArrow.Location = new Point(165, 73);
+            BtnRightArrow.Location = new Point(147, 73);
             BtnRightArrow.Name = "BtnRightArrow";
-            BtnRightArrow.Size = new Size(70, 64);
+            BtnRightArrow.Size = new Size(66, 64);
             BtnRightArrow.TabIndex = 2;
             BtnRightArrow.UseVisualStyleBackColor = true;
             BtnRightArrow.Click += BtnRightArrow_Click;
@@ -230,7 +230,7 @@
             BtnLeftArrow.Image = (Image)resources.GetObject("BtnLeftArrow.Image");
             BtnLeftArrow.Location = new Point(3, 73);
             BtnLeftArrow.Name = "BtnLeftArrow";
-            BtnLeftArrow.Size = new Size(70, 64);
+            BtnLeftArrow.Size = new Size(66, 64);
             BtnLeftArrow.TabIndex = 3;
             BtnLeftArrow.UseVisualStyleBackColor = true;
             BtnLeftArrow.Click += BtnLeftArrow_Click;
@@ -238,9 +238,9 @@
             // BtnRotateClockwise
             // 
             BtnRotateClockwise.Image = (Image)resources.GetObject("BtnRotateClockwise.Image");
-            BtnRotateClockwise.Location = new Point(246, 3);
+            BtnRotateClockwise.Location = new Point(219, 3);
             BtnRotateClockwise.Name = "BtnRotateClockwise";
-            BtnRotateClockwise.Size = new Size(70, 64);
+            BtnRotateClockwise.Size = new Size(69, 64);
             BtnRotateClockwise.TabIndex = 4;
             BtnRotateClockwise.UseVisualStyleBackColor = true;
             BtnRotateClockwise.Click += BtnRotateClockwise_Click;
@@ -248,9 +248,9 @@
             // BtnRotateAntiClockWise
             // 
             BtnRotateAntiClockWise.Image = (Image)resources.GetObject("BtnRotateAntiClockWise.Image");
-            BtnRotateAntiClockWise.Location = new Point(246, 143);
+            BtnRotateAntiClockWise.Location = new Point(219, 143);
             BtnRotateAntiClockWise.Name = "BtnRotateAntiClockWise";
-            BtnRotateAntiClockWise.Size = new Size(70, 65);
+            BtnRotateAntiClockWise.Size = new Size(69, 65);
             BtnRotateAntiClockWise.TabIndex = 5;
             BtnRotateAntiClockWise.UseVisualStyleBackColor = true;
             BtnRotateAntiClockWise.Click += BtnRotateAntiClockWise_Click;
@@ -260,8 +260,10 @@
             tableLayoutPanel4.ColumnCount = 1;
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel4.Controls.Add(label1, 0, 0);
-            tableLayoutPanel4.Controls.Add(TxtCommand, 0, 1);
-            tableLayoutPanel4.Location = new Point(333, 3);
+            tableLayoutPanel4.Controls.Add(TextBoxCommandInstructions, 0, 1);
+            tableLayoutPanel4.Controls.Add(BtnExecuteCommand, 0, 2);
+            tableLayoutPanel4.Dock = DockStyle.Fill;
+            tableLayoutPanel4.Location = new Point(300, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 5;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
@@ -269,26 +271,39 @@
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 20F));
-            tableLayoutPanel4.Size = new Size(324, 211);
+            tableLayoutPanel4.Size = new Size(689, 211);
             tableLayoutPanel4.TabIndex = 2;
             // 
             // label1
             // 
             label1.AutoSize = true;
+            label1.Dock = DockStyle.Fill;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label1.Location = new Point(3, 0);
             label1.Name = "label1";
-            label1.Size = new Size(262, 42);
+            label1.Size = new Size(683, 42);
             label1.TabIndex = 0;
             label1.Text = "Enter your command below";
             // 
-            // TxtCommand
+            // TextBoxCommandInstructions
             // 
-            TxtCommand.Location = new Point(3, 45);
-            TxtCommand.Multiline = true;
-            TxtCommand.Name = "TxtCommand";
-            TxtCommand.Size = new Size(318, 36);
-            TxtCommand.TabIndex = 1;
+            TextBoxCommandInstructions.Dock = DockStyle.Fill;
+            TextBoxCommandInstructions.Location = new Point(3, 45);
+            TextBoxCommandInstructions.Multiline = true;
+            TextBoxCommandInstructions.Name = "TextBoxCommandInstructions";
+            TextBoxCommandInstructions.Size = new Size(683, 36);
+            TextBoxCommandInstructions.TabIndex = 1;
+            // 
+            // BtnExecuteCommand
+            // 
+            BtnExecuteCommand.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            BtnExecuteCommand.Location = new Point(3, 87);
+            BtnExecuteCommand.Name = "BtnExecuteCommand";
+            BtnExecuteCommand.Size = new Size(175, 36);
+            BtnExecuteCommand.TabIndex = 2;
+            BtnExecuteCommand.Text = "Execute Command";
+            BtnExecuteCommand.UseVisualStyleBackColor = true;
+            BtnExecuteCommand.Click += BtnExecuteCommand_Click;
             // 
             // Form1
             // 
@@ -334,8 +349,9 @@
         private TableLayoutPanel tableLayoutPanel3;
         private TableLayoutPanel tableLayoutPanel4;
         private Label label1;
-        private TextBox TxtCommand;
+        private TextBox TextBoxCommandInstructions;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem InstructionsToolStripMenuItem;
+        private Button BtnExecuteCommand;
     }
 }
