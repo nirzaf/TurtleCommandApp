@@ -14,8 +14,6 @@ namespace TurtleCommandApp
             TurtleBoard.Controls.Add(PBTurtle, 0, 3);
             TurtleBoard.BackColor = Color.Black;
             TurtleBoard.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
-
-            // LabelTurtlePosition make it invisible
             LabelTurtlePosition.Visible = false;
         }
 
