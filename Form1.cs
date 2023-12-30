@@ -43,19 +43,19 @@ namespace TurtleCommandApp
             }
 
             //fetch the position of the PictureBoxes PbPool, PbCar, PbTree, PbCake in the table layout panel TurtleBoard x and y coordinates
-            int poolX = TurtleBoard.GetColumn(PbPool);
-            int poolY = TurtleBoard.GetRow(PbPool);
-            int carX = TurtleBoard.GetColumn(PbCar);
-            int carY = TurtleBoard.GetRow(PbCar);
-            int treeX = TurtleBoard.GetColumn(PbTree);
-            int treeY = TurtleBoard.GetRow(PbTree);
-            int cakeX = TurtleBoard.GetColumn(PbCake);
-            int cakeY = TurtleBoard.GetRow(PbCake);
+            int poolColumn = TurtleBoard.GetColumn(PbPool);
+            int poolRow = TurtleBoard.GetRow(PbPool);
+            int carColumn = TurtleBoard.GetColumn(PbCar);
+            int carRow = TurtleBoard.GetRow(PbCar);
+            int treeColumn = TurtleBoard.GetColumn(PbTree);
+            int treeRow = TurtleBoard.GetRow(PbTree);
+            int cakeColumn = TurtleBoard.GetColumn(PbCake);
+            int cakeRow = TurtleBoard.GetRow(PbCake);
 
-            _poolPosition = (poolX, poolY);
-            _carPosition = (carX, carY);
-            _treePosition = (treeX, treeY);
-            _cakePosition = (cakeX, cakeY);
+            _poolPosition = (poolColumn, poolRow);
+            _carPosition = (carColumn, carRow);
+            _treePosition = (treeColumn, treeRow);
+            _cakePosition = (cakeColumn, cakeRow);
         }
 
         private void BtnDownArrow_Click(object sender, EventArgs e)
@@ -67,20 +67,40 @@ namespace TurtleCommandApp
             if (y < 3)
             {
                 TurtleBoard.SetRow(PBTurtle, y + 1);
-                
-                //Task delay for 500 milliseconds
-                Task.Delay(1500);
             }
         }
 
         private void BtnRightArrow_Click(object sender, EventArgs e)
         {
             // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
-            int x = TurtleBoard.GetColumn(PBTurtle);
-            if (x < 3)
+            int column = TurtleBoard.GetColumn(PBTurtle);
+            int row = TurtleBoard.GetRow(PBTurtle);
+            if (column < 3)
             {
-                Task.Delay(1500);
-                TurtleBoard.SetColumn(PBTurtle, x + 1);
+                //check if next position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+                if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row) && _cakePosition != (column + 1, row) && _poolPosition != (column + 1, row))
+                {
+                    TurtleBoard.SetColumn(PBTurtle, column + 1);
+                }
+                else
+                {
+                    if (_carPosition == (column + 1, row))
+                    {
+                        MessageBox.Show(@"You hit the car");
+                    }
+                    else if (_treePosition == (column + 1, row))
+                    {
+                        MessageBox.Show(@"You hit the tree");
+                    }
+                    else if (_cakePosition == (column + 1, row))
+                    {
+                        MessageBox.Show(@"You hit the cake");
+                    }
+                    else if (_poolPosition == (column + 1, row))
+                    {
+                        MessageBox.Show(@"You hit the pool");
+                    }
+                }
             }
         }
 
@@ -90,7 +110,6 @@ namespace TurtleCommandApp
             int x = TurtleBoard.GetColumn(PBTurtle);
             if (x > 0)
             {
-                Task.Delay(1500);
                 TurtleBoard.SetColumn(PBTurtle, x - 1);
             }
         }
@@ -156,13 +175,14 @@ namespace TurtleCommandApp
                 MessageBox.Show(@"Invalid Command");
                 return;
             }
+
             //if no go in the end of the command, then show in MessageBox as Invalid Command
             if (!commandText.Trim().EndsWith("go"))
             {
                 MessageBox.Show(@"Invalid Command");
                 return;
             }
-            
+
             string[] commands = commandText.Split(',');
 
             foreach (string command in commands)
