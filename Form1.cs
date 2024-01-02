@@ -62,45 +62,17 @@ public partial class Form1 : Form
         _treePosition = (treeColumn, treeRow);
         _cakePosition = (cakeColumn, cakeRow);
     }
-        
-                
-    private void OnTimerColumnTickPlus(int column, System.Windows.Forms.Timer timer1)
-    {
-        timer1.Interval = 500;
-        TurtleBoard.SetColumn(PBTurtle, column + 1);
-        timer1.Stop();
-    }
-        
-    private void OnTimerRowTickPlus(int row, System.Windows.Forms.Timer timer1)
-    {
-        timer1.Interval = 500;
-        TurtleBoard.SetRow(PBTurtle, row + 1);
-        timer1.Stop();
-    }
-        
-    private void OnTimerColumnTickMinus(int column, System.Windows.Forms.Timer timer1)
-    {
-        timer1.Interval = 500;
-        TurtleBoard.SetColumn(PBTurtle, column - 1);
-        timer1.Stop();
-    }
-        
-    private void OnTimerRowTickMinus(int row, System.Windows.Forms.Timer timer1)
-    {
-        timer1.Interval = 500;
-        TurtleBoard.SetRow(PBTurtle, row - 1);
-        timer1.Stop();
-    }
+    
 
     private void BtnRightArrow_Click(object sender, EventArgs e)
     {
-        // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
         int column = TurtleBoard.GetColumn(PBTurtle);
         int row = TurtleBoard.GetRow(PBTurtle);
         if (column >= 3) return;
-        //check if next position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+
         if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row) && _cakePosition != (column + 1, row) && _poolPosition != (column + 1, row))
         {
+            Thread.Sleep(750);
             TurtleBoard.SetColumn(PBTurtle, column + 1);
         }
         else
@@ -130,15 +102,15 @@ public partial class Form1 : Form
 
     private void BtnDownArrow_Click(object sender, EventArgs e)
     {
-        // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
         int column = TurtleBoard.GetColumn(PBTurtle);
         int row = TurtleBoard.GetRow(PBTurtle);
 
         if (row >= 3) return;
-        //check if next position of row has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+
         if (_carPosition != (column, row + 1) && _treePosition != (column, row + 1) &&
             _cakePosition != (column, row + 1) && _poolPosition != (column, row + 1))
         {
+            Thread.Sleep(750);
             TurtleBoard.SetRow(PBTurtle, row + 1);
         }
         else
@@ -168,14 +140,14 @@ public partial class Form1 : Form
 
     private void BtnLeftArrow_Click(object sender, EventArgs e)
     {
-        // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
         int column = TurtleBoard.GetColumn(PBTurtle);
         int row = TurtleBoard.GetRow(PBTurtle);
         if (column <= 0) return;
-        //check if previous position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
+
         if (_carPosition != (column - 1, row) && _treePosition != (column - 1, row) && _cakePosition != (column - 1, row) && _poolPosition != (column - 1, row))
         {
-             TurtleBoard.SetColumn(PBTurtle, column - 1);
+            Thread.Sleep(750);
+            TurtleBoard.SetColumn(PBTurtle, column - 1);
         }
         else
         {
@@ -204,13 +176,12 @@ public partial class Form1 : Form
 
     private void BtnUpArrow_Click(object sender, EventArgs e)
     {
-        // fetch the current position of the PBTurtle picture box in the table layout panel TurtleBoard x and y coordinates
         int column = TurtleBoard.GetColumn(PBTurtle);
         int row = TurtleBoard.GetRow(PBTurtle);
         if (row <= 0) return;
-        //check if previous position of row has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
         if (_carPosition != (column, row - 1) && _treePosition != (column, row - 1) && _cakePosition != (column, row - 1) && _poolPosition != (column, row - 1))
         {
+            Thread.Sleep(500);
             TurtleBoard.SetRow(PBTurtle, row - 1);
         }
         else
