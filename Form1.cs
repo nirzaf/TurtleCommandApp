@@ -29,7 +29,6 @@ public partial class Form1 : Form
 
     private void ShufflePictureBoxes()
     {
-        // Place the PictureBoxes PbPool, PbCar, PbTree, PbCake in random positions on the table layout panel TurtleBoard
         Random random = new();
         int[] positions = [0, 1, 2, 3];
         PictureBox[] pictureBoxes = [PbPool, PbCar, PbTree, PbCake];
@@ -41,13 +40,11 @@ public partial class Form1 : Form
             {
                 randomRow = random.Next(positions.Length);
                 randomColumn = random.Next(positions.Length);
-            } while (randomColumn == 0 && randomRow == 3); // Repeat if the position is column 0, row 3
+            } while (randomColumn == 0 && randomRow == 3); 
 
-            TurtleBoard.SetRow(pictureBox, randomRow);
-            TurtleBoard.SetColumn(pictureBox, randomColumn);
+            TurtleBoard.Controls.Add(pictureBox, randomColumn, randomRow);
         }
 
-        //fetch the position of the PictureBoxes PbPool, PbCar, PbTree, PbCake in the table layout panel TurtleBoard x and y coordinates
         int poolColumn = TurtleBoard.GetColumn(PbPool);
         int poolRow = TurtleBoard.GetRow(PbPool);
         int carColumn = TurtleBoard.GetColumn(PbCar);
@@ -251,14 +248,13 @@ public partial class Form1 : Form
     private void BtnExecuteCommand_Click(object sender, EventArgs e)
     {
         string commandText = TextBoxCommandInstructions.Text;
-        //if no cs in the beginning of the command, then show in MessageBox as Invalid Command
+
         if (!commandText.Trim().StartsWith("cs"))
         {
             MessageBox.Show(@"Invalid Command");
             return;
         }
 
-        //if no go in the end of the command, then show in MessageBox as Invalid Command
         if (!commandText.Trim().EndsWith("go"))
         {
             MessageBox.Show(@"Invalid Command");
@@ -404,10 +400,5 @@ public partial class Form1 : Form
 
         TextBoxCommandInstructions.Text = "";
         TextBoxCommandInstructions.Focus();
-    }
-
-    private void Timer1_Tick(object sender, EventArgs e)
-    {
-
     }
 }

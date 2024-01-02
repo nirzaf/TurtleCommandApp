@@ -360,11 +360,7 @@
             BtnExecuteCommand.UseVisualStyleBackColor = true;
             BtnExecuteCommand.Click += BtnExecuteCommand_Click;
             // 
-            // Timer1
-            // 
-            Timer1.Interval = 500;
-            Timer1.Tick += Timer1_Tick;
-            // 
+
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
