@@ -31,8 +31,8 @@ public partial class Form1 : Form
     {
         // Place the PictureBoxes PbPool, PbCar, PbTree, PbCake in random positions on the table layout panel TurtleBoard
         Random random = new();
-        int[] positions = { 0, 1, 2, 3 };
-        PictureBox[] pictureBoxes = { PbPool, PbCar, PbTree, PbCake };
+        int[] positions = [0, 1, 2, 3];
+        PictureBox[] pictureBoxes = [PbPool, PbCar, PbTree, PbCake];
         foreach (PictureBox pictureBox in pictureBoxes)
         {
             int randomRow;
@@ -101,9 +101,7 @@ public partial class Form1 : Form
         //check if next position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
         if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row) && _cakePosition != (column + 1, row) && _poolPosition != (column + 1, row))
         {
-            System.Windows.Forms.Timer timer1 = new();
-            timer1.Tick += (_, _) => OnTimerColumnTickPlus(column, timer1);
-            timer1.Start();
+            TurtleBoard.SetColumn(PBTurtle, column + 1);
         }
         else
         {
@@ -141,10 +139,7 @@ public partial class Form1 : Form
         if (_carPosition != (column, row + 1) && _treePosition != (column, row + 1) &&
             _cakePosition != (column, row + 1) && _poolPosition != (column, row + 1))
         {
-            // TurtleBoard.SetRow(PBTurtle, row + 1);
-            System.Windows.Forms.Timer timer1 = new();
-            timer1.Tick += (_, _) => OnTimerRowTickPlus(row, timer1);
-            timer1.Start();
+            TurtleBoard.SetRow(PBTurtle, row + 1);
         }
         else
         {
@@ -180,10 +175,7 @@ public partial class Form1 : Form
         //check if previous position of column has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
         if (_carPosition != (column - 1, row) && _treePosition != (column - 1, row) && _cakePosition != (column - 1, row) && _poolPosition != (column - 1, row))
         {
-            // TurtleBoard.SetColumn(PBTurtle, column - 1);
-            System.Windows.Forms.Timer timer1 = new();
-            timer1.Tick += (_, _) => OnTimerColumnTickMinus(column, timer1);
-            timer1.Start();
+             TurtleBoard.SetColumn(PBTurtle, column - 1);
         }
         else
         {
@@ -219,10 +211,7 @@ public partial class Form1 : Form
         //check if previous position of row has a picture box using the _carPosition, _treePosition, _cakePosition, _poolPosition
         if (_carPosition != (column, row - 1) && _treePosition != (column, row - 1) && _cakePosition != (column, row - 1) && _poolPosition != (column, row - 1))
         {
-            // TurtleBoard.SetRow(PBTurtle, row - 1);
-            System.Windows.Forms.Timer timer1 = new();
-            timer1.Tick += (_, _) => OnTimerRowTickMinus(row, timer1);
-            timer1.Start();
+            TurtleBoard.SetRow(PBTurtle, row - 1);
         }
         else
         {
