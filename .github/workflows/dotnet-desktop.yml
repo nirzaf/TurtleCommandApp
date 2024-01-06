@@ -19,7 +19,7 @@ jobs:
     env:
       Solution_Name: TurtleCommandApp.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
       Wap_Project_Name: TurtleCommandApp                         # Replace with your Windows Application Packaging project name, i.e. MyWpfApp.
-      Wap_Project_Path: ${{ env.Solution_Name }}/${{ env.Wap_Project_Name }}/${{ env.Wap_Project_Name }}.wapproj
+      Wap_Project_Path: "C:\\Users\nirza\\source\repos\\TurtleCommandApp\\TurtleCommandApp.csproj"
 
     steps:
     - name: Checkout
