@@ -270,6 +270,12 @@ public partial class Form1 : Form
             string action = parts[0].Trim();
             int steps = parts.Length > 1 ? int.Parse(parts[1].Trim()) : 1;
 
+            if (action != "cs" && action != "fd" && action != "lt" && action != "rt" && action != "bk" && action != "go")
+            {
+                MessageBox.Show(@"Invalid Command");
+                return;
+            }
+
             if (action == "cs")
             {
                 TurtleBoard.SetRow(PBTurtle, 3);
