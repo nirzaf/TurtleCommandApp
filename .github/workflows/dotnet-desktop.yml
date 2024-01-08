@@ -2,17 +2,15 @@ name: .NET Core Desktop
 
 on:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+    branches:
+       - master
+    paths-ignore: 
+       - ".github/**"
+       - "README.md"
 
 jobs:
 
   build:
-
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
 
     runs-on: windows-latest  
 
