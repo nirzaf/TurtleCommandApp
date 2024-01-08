@@ -31,7 +31,7 @@ jobs:
          - run: |
                dotnet build TurtleCommandApp.sln --configuration release
 
-
+         
     # Decode the base 64 encoded pfx and save the Signing_Certificate
          - name: Decode the pfx
            run: |
@@ -40,6 +40,8 @@ jobs:
                  [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
            shell: pwsh
 
+         - name: Add msbuild to PATH
+           uses: microsoft/setup-msbuild@v1.3.1
 
          - name: Create the app package
            run: msbuild ${{env.Project}} /p:Configuration=${{env.Configuration}} /p:UapAppxPackageBuildMode=${{env.Appx_Package_Build_Mode}} /p:AppxBundle=${{env.Appx_Bundle}} /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
@@ -48,7 +50,7 @@ jobs:
                Appx_Bundle_Platforms: x86|x64
                Appx_Package_Build_Mode: StoreUpload
                Configuration: "release"
-               Project: "TurtleComandApp.csproj"
+               Project: "TurtleCommandApp.csproj"
 
     # Remove the pfx
          - name: Remove the pfx
