@@ -28,36 +28,11 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
          - run: |
-               dotnet build TurtleCommandApp.sln --configuration release
-
-         
-    # Decode the base 64 encoded pfx and save the Signing_Certificate
-         - name: Decode the pfx
-           run: |
-                $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-                 $certificatePath = Join-Path -Path ${{github.Workspace}} -ChildPath GitHubActionsWorkflow.pfx
-                 [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
-           shell: pwsh
-
-         - name: Add msbuild to PATH
-           uses: microsoft/setup-msbuild@v1.3.1
-
-         - name: Create the app package
-           run: msbuild ${{env.Project}} /p:Configuration=${{env.Configuration}} /p:UapAppxPackageBuildMode=${{env.Appx_Package_Build_Mode}} /p:AppxBundle=${{env.Appx_Bundle}} /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
-           env:
-               Appx_Bundle: Always
-               Appx_Bundle_Platforms: x86|x64
-               Appx_Package_Build_Mode: StoreUpload
-               Configuration: "release"
-               Project: "TurtleCommandApp.csproj"
-
-    # Remove the pfx
-         - name: Remove the pfx
-           run: Remove-Item -path ${{github.Workspace}}\GitHubActionsWorkflow.pfx
+               dotnet build TurtleCommandApp.sln --configuration release. --output "${{github.workspace}}\setup"
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
          - name: Upload build artifacts
            uses: actions/upload-artifact@v3
            with:
-                name: MSIX Package
-                path: ${{ github.workspace }}\AppPackages
+                name: Setup Exe
+                path: ${{ github.workspace }}\setup
