@@ -14,13 +14,12 @@ jobs:
        permissions: 
          contents: write
        env:
-         RELEASE: "v${{inputs.release_version}}"
+         RELEASE: ${{inputs.release_version}}
        steps: 
-
-        - name: Create Tag
-          run: |
-           git tag  ${{env.RELEASE}}
-           git push origin  ${{env.RELEASE}}
+        - name: Checkout
+          uses: actions/checkout@v3
+          with:
+             ref: ${{env.RELEASE}}
 
 
         - name: Release
@@ -31,4 +30,4 @@ jobs:
              generate_release_notes: true
              draft: false
              prerelease: false
-             files: ""
+             files: ${{github.workspace}}/setup
