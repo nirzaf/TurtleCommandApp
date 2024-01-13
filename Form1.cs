@@ -7,6 +7,9 @@ public partial class Form1 : Form
     private static (int, int) _treePosition;
     private static (int, int) _cakePosition;
     private static (int, int) _poolPosition;
+    private static string[] _gameTargets = new string[4];
+    private static string _currentTarget = "";
+    private static (int, int) _currentTargetPosition;
 
     public Form1()
     {
@@ -15,6 +18,7 @@ public partial class Form1 : Form
 
     private void Form1_Load(object sender, EventArgs e)
     {
+        _gameTargets = ["Go to the pool", "Go to the car", "Go to the tree", "Go to the cake"];
         NewGame();
     }
 
@@ -24,6 +28,13 @@ public partial class Form1 : Form
         TurtleBoard.BackColor = Color.Black;
         TurtleBoard.CellBorderStyle = TableLayoutPanelCellBorderStyle.Inset;
         LabelTurtlePosition.Visible = false;
+
+        //find the random target from _gameTargets
+        Random random = new();
+        int randomIndex = random.Next(_gameTargets.Length);
+        string randomTarget = _gameTargets[randomIndex];
+        LabelGameTarget.Text = randomTarget;
+        _currentTarget = randomTarget;
         ShufflePictureBoxes();
     }
 
@@ -34,15 +45,23 @@ public partial class Form1 : Form
         PictureBox[] pictureBoxes = [PbPool, PbCar, PbTree, PbCake];
         foreach (PictureBox pictureBox in pictureBoxes)
         {
-            int randomRow;
-            int randomColumn;
-            do
+            int randomRow = random.Next(positions.Length);
+            int randomColumn = random.Next(positions.Length);
+
+            if (randomRow == 3 && randomColumn == 0)
             {
                 randomRow = random.Next(positions.Length);
                 randomColumn = random.Next(positions.Length);
-            } while (randomColumn == 0 && randomRow == 3); 
+            }
 
-            TurtleBoard.Controls.Add(pictureBox, randomColumn, randomRow);
+            if (randomRow == 3 && randomColumn == 0)
+            {
+                randomRow = random.Next(positions.Length);
+                randomColumn = random.Next(positions.Length);
+            }
+
+            TurtleBoard.SetColumn(pictureBox, randomColumn);
+            TurtleBoard.SetRow(pictureBox, randomRow);
         }
 
         int poolColumn = TurtleBoard.GetColumn(PbPool);
@@ -58,8 +77,17 @@ public partial class Form1 : Form
         _carPosition = (carColumn, carRow);
         _treePosition = (treeColumn, treeRow);
         _cakePosition = (cakeColumn, cakeRow);
+
+        _currentTargetPosition = _currentTarget switch
+        {
+            "Go to the pool" => _poolPosition,
+            "Go to the car" => _carPosition,
+            "Go to the tree" => _treePosition,
+            "Go to the cake" => _cakePosition,
+            _ => _currentTargetPosition
+        };
     }
-    
+
 
     private void BtnRightArrow_Click(object sender, EventArgs e)
     {
@@ -67,7 +95,9 @@ public partial class Form1 : Form
         int row = TurtleBoard.GetRow(PBTurtle);
         if (column >= 3) return;
 
-        if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row) && _cakePosition != (column + 1, row) && _poolPosition != (column + 1, row))
+        if (_carPosition != (column + 1, row) && _treePosition != (column + 1, row)
+                                              && _cakePosition != (column + 1, row) &&
+                                              _poolPosition != (column + 1, row))
         {
             Thread.Sleep(750);
             TurtleBoard.SetColumn(PBTurtle, column + 1);
@@ -77,22 +107,90 @@ public partial class Form1 : Form
             if (_carPosition == (column + 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the car");
+                if (_currentTargetPosition == _carPosition)
+                {
+                    MessageBox.Show(@"You reached the car successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_treePosition == (column + 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the tree");
+                if (_currentTargetPosition == _treePosition)
+                {
+                    MessageBox.Show(@"You reached the tree successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_cakePosition == (column + 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the cake");
+                if (_currentTargetPosition == _cakePosition)
+                {
+                    MessageBox.Show(@"You reached the cake successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_poolPosition == (column + 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the pool");
+                if (_currentTargetPosition == _poolPosition)
+                {
+                    MessageBox.Show(@"You reached the pool successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
         }
     }
@@ -115,22 +213,90 @@ public partial class Form1 : Form
             if (_carPosition == (column, row + 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the car");
+                if (_currentTargetPosition == _carPosition)
+                {
+                    MessageBox.Show(@"You reached the car successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_treePosition == (column, row + 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the tree");
+                if (_currentTargetPosition == _treePosition)
+                {
+                    MessageBox.Show(@"You reached the tree successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_cakePosition == (column, row + 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the cake");
+                if (_currentTargetPosition == _cakePosition)
+                {
+                    MessageBox.Show(@"You reached the cake successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_poolPosition == (column, row + 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the pool");
+                if (_currentTargetPosition == _poolPosition)
+                {
+                    MessageBox.Show(@"You reached the pool successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
         }
     }
@@ -141,7 +307,9 @@ public partial class Form1 : Form
         int row = TurtleBoard.GetRow(PBTurtle);
         if (column <= 0) return;
 
-        if (_carPosition != (column - 1, row) && _treePosition != (column - 1, row) && _cakePosition != (column - 1, row) && _poolPosition != (column - 1, row))
+        if (_carPosition != (column - 1, row) && _treePosition != (column - 1, row)
+                                              && _cakePosition != (column - 1, row) &&
+                                              _poolPosition != (column - 1, row))
         {
             Thread.Sleep(750);
             TurtleBoard.SetColumn(PBTurtle, column - 1);
@@ -151,22 +319,90 @@ public partial class Form1 : Form
             if (_carPosition == (column - 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the car");
+                if (_currentTargetPosition == _carPosition)
+                {
+                    MessageBox.Show(@"You reached the car successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_treePosition == (column - 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the tree");
+                if (_currentTargetPosition == _treePosition)
+                {
+                    MessageBox.Show(@"You reached the tree successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_cakePosition == (column - 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the cake");
+                if (_currentTargetPosition == _cakePosition)
+                {
+                    MessageBox.Show(@"You reached the cake successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_poolPosition == (column - 1, row))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the pool");
+                if (_currentTargetPosition == _poolPosition)
+                {
+                    MessageBox.Show(@"You reached the pool successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
         }
     }
@@ -176,7 +412,9 @@ public partial class Form1 : Form
         int column = TurtleBoard.GetColumn(PBTurtle);
         int row = TurtleBoard.GetRow(PBTurtle);
         if (row <= 0) return;
-        if (_carPosition != (column, row - 1) && _treePosition != (column, row - 1) && _cakePosition != (column, row - 1) && _poolPosition != (column, row - 1))
+        if (_carPosition != (column, row - 1) && _treePosition != (column, row - 1)
+                                              && _cakePosition != (column, row - 1) &&
+                                              _poolPosition != (column, row - 1))
         {
             Thread.Sleep(500);
             TurtleBoard.SetRow(PBTurtle, row - 1);
@@ -186,22 +424,90 @@ public partial class Form1 : Form
             if (_carPosition == (column, row - 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the car");
+                if (_currentTargetPosition == _carPosition)
+                {
+                    MessageBox.Show(@"You reached the car successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_treePosition == (column, row - 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the tree");
+                if (_currentTargetPosition == _treePosition)
+                {
+                    MessageBox.Show(@"You reached the tree successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_cakePosition == (column, row - 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the cake");
+                if (_currentTargetPosition == _cakePosition)
+                {
+                    MessageBox.Show(@"You reached the cake successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
             else if (_poolPosition == (column, row - 1))
             {
                 TurtleBoard.Controls.Remove(PBTurtle);
-                MessageBox.Show(@"You got the pool");
+                if (_currentTargetPosition == _poolPosition)
+                {
+                    MessageBox.Show(@"You reached the pool successfully, Congratulations");
+                    NewGame();
+                }
+                else
+                {
+                    DialogResult result = MessageBox.Show(@"You have reached the wrong target. Try again.",
+                        @"Wrong Target", MessageBoxButtons.RetryCancel);
+                    switch (result)
+                    {
+                        case DialogResult.Retry:
+                            NewGame();
+                            break;
+                        case DialogResult.Cancel:
+                            break;
+                    }
+                }
             }
         }
     }
@@ -270,7 +576,8 @@ public partial class Form1 : Form
             string action = parts[0].Trim();
             int steps = parts.Length > 1 ? int.Parse(parts[1].Trim()) : 1;
 
-            if (action != "cs" && action != "fd" && action != "lt" && action != "rt" && action != "bk" && action != "go")
+            if (action != "cs" && action != "fd" && action != "lt" && action != "rt" && action != "bk" &&
+                action != "go")
             {
                 MessageBox.Show(@"Invalid Command");
                 return;

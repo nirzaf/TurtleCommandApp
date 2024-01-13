@@ -56,6 +56,7 @@
             TextBoxCommandInstructions = new TextBox();
             BtnExecuteCommand = new Button();
             Timer1 = new System.Windows.Forms.Timer(components);
+            LabelGameTarget = new Label();
             menuStrip1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             TurtleBoard.SuspendLayout();
@@ -314,9 +315,10 @@
             // 
             tableLayoutPanel4.ColumnCount = 1;
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
-            tableLayoutPanel4.Controls.Add(label1, 0, 0);
-            tableLayoutPanel4.Controls.Add(TextBoxCommandInstructions, 0, 1);
-            tableLayoutPanel4.Controls.Add(BtnExecuteCommand, 0, 2);
+            tableLayoutPanel4.Controls.Add(BtnExecuteCommand, 0, 3);
+            tableLayoutPanel4.Controls.Add(TextBoxCommandInstructions, 0, 2);
+            tableLayoutPanel4.Controls.Add(label1, 0, 1);
+            tableLayoutPanel4.Controls.Add(LabelGameTarget, 0, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(288, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
@@ -332,18 +334,18 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Dock = DockStyle.Fill;
+            label1.Dock = DockStyle.Left;
             label1.Font = new Font("Segoe UI", 18F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(3, 0);
+            label1.Location = new Point(3, 42);
             label1.Name = "label1";
-            label1.Size = new Size(656, 42);
+            label1.Size = new Size(331, 42);
             label1.TabIndex = 0;
             label1.Text = "Enter your command below";
             // 
             // TextBoxCommandInstructions
             // 
             TextBoxCommandInstructions.Dock = DockStyle.Fill;
-            TextBoxCommandInstructions.Location = new Point(3, 45);
+            TextBoxCommandInstructions.Location = new Point(3, 87);
             TextBoxCommandInstructions.Multiline = true;
             TextBoxCommandInstructions.Name = "TextBoxCommandInstructions";
             TextBoxCommandInstructions.Size = new Size(656, 36);
@@ -351,8 +353,9 @@
             // 
             // BtnExecuteCommand
             // 
+            BtnExecuteCommand.Dock = DockStyle.Left;
             BtnExecuteCommand.Font = new Font("Times New Roman", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            BtnExecuteCommand.Location = new Point(3, 87);
+            BtnExecuteCommand.Location = new Point(3, 129);
             BtnExecuteCommand.Name = "BtnExecuteCommand";
             BtnExecuteCommand.Size = new Size(175, 36);
             BtnExecuteCommand.TabIndex = 2;
@@ -360,7 +363,16 @@
             BtnExecuteCommand.UseVisualStyleBackColor = true;
             BtnExecuteCommand.Click += BtnExecuteCommand_Click;
             // 
-
+            // LabelGameTarget
+            // 
+            LabelGameTarget.AutoSize = true;
+            LabelGameTarget.Font = new Font("Arial Narrow", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            LabelGameTarget.Location = new Point(3, 0);
+            LabelGameTarget.Name = "LabelGameTarget";
+            LabelGameTarget.Size = new Size(48, 20);
+            LabelGameTarget.TabIndex = 3;
+            LabelGameTarget.Text = "Target";
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -418,5 +430,6 @@
         private PictureBox PbCar;
         private PictureBox PbTree;
         private System.Windows.Forms.Timer Timer1;
+        private Label LabelGameTarget;
     }
 }
