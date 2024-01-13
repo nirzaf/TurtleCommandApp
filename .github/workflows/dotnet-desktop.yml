@@ -1,5 +1,5 @@
 name: Generate EXE
-run-name: Setup Release-${{ github.run_number }} 
+run-name: Build Release-${{ github.run_number }} 
 on:
   workflow_dispatch:
   push:
@@ -8,6 +8,7 @@ on:
     paths-ignore: 
        - ".github/**"
        - "README.md"
+       - "setup/**"
 
 jobs:
 
@@ -16,6 +17,8 @@ jobs:
     runs-on: windows-latest
     permissions: 
        contents: write
+    env:
+      RELEASE: "v${{github.run_number}}"
     steps:
          - name: Checkout
            uses: actions/checkout@v3
@@ -40,26 +43,13 @@ jobs:
                 name: Setup Exe
                 path: ${{ github.workspace }}\setup
 
-         - name: Create Tag
-           run: |
-              git tag  ${{env.RELEASE}}
-              git push origin  ${{env.RELEASE}}
-           env:
-            RELEASE: "v${{github.run_number}}"
+         - name: Upload the Build
+           run:  |
+              git add setup
+              git commit -m "setup has been updted."
+              git push origin
+                 
 
 
-         - name: Create Release
-           id: create_release
-           uses: actions/create-release@v1
-           env:
-                  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-           with:
-                  tag_name: ${{ github.ref }}
-                  release_name: Release ${{ github.ref }}
-                  body: |
-                    Changes in this Release
-                    - First Change
-                    - Second Change
-                  draft: false
-                  prerelease: false
-              
+        
+                
