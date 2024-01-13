@@ -1,3 +1,4 @@
+name: Generate EXE
 run-name: Setup Release-${{ github.run_number }} 
 on:
   workflow_dispatch:
@@ -28,7 +29,7 @@ jobs:
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
          - run: |
-               dotnet build TurtleCommandApp.sln --configuration release. --output "${{github.workspace}}\setup"
+               dotnet build TurtleCommandApp.sln --configuration release --output "${{github.workspace}}\setup"
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
          - name: Upload build artifacts
