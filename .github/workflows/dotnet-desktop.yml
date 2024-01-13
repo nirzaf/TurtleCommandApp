@@ -1,4 +1,4 @@
-name: .NET Core Desktop
+name: Setup Release-${{ github.run_number }}
 
 on:
   workflow_dispatch:
@@ -25,7 +25,7 @@ jobs:
          - name: Install .NET Core
            uses: actions/setup-dotnet@v3
            with:
-              dotnet-version: 6.0.x
+              dotnet-version: 8.0.x
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
          - run: |
