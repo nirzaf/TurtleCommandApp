@@ -19,7 +19,7 @@ jobs:
     permissions: 
        contents: write
     outputs:
-         release_version: ${{steps.release-version.outputs.release-version}}
+         release_version: ${{env.RELEASE}}
     
     steps:
          - name: Checkout
@@ -59,9 +59,9 @@ jobs:
                git push origin  ${{env.RELEASE}}
 
          - name: Output Release Version
-           id: release-version
+           id: release_version
            run: | 
-               echo "release-version=${{env.RELEASE}}" >> "$GITHUB_OUTPUT" 
+               echo "version=${{env.RELEASE}}" >> "$GITHUB_OUTPUT" 
         
     
   release:
