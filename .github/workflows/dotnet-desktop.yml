@@ -9,7 +9,8 @@ on:
        - ".github/**"
        - "README.md"
        - "setup/**"
-
+env:
+  RELEASE: "v${{github.run_number}}"
 jobs:
 
   build:
@@ -17,8 +18,7 @@ jobs:
     runs-on: windows-latest
     permissions: 
        contents: write
-    env:
-      RELEASE: "v${{github.run_number}}"
+    
     steps:
          - name: Checkout
            uses: actions/checkout@v3
@@ -56,6 +56,13 @@ jobs:
                git tag  ${{env.RELEASE}}
                git push origin  ${{env.RELEASE}}
     
+  release:
+     name: Create Release
+     uses: ./.github/workflows/release.yml@master
+     with:
+      release_version: ${{ env.RELEASE }}
+     secrets: inherit
+
 
         
                 
