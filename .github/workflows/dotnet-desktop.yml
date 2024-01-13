@@ -71,6 +71,8 @@ jobs:
      with:
       release_version:  ${{needs.builds.outputs.release_version}}
      secrets: inherit
+     permissions:
+      contents: write
 
 
         
