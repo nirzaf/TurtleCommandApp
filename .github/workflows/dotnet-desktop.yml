@@ -18,6 +18,8 @@ jobs:
     runs-on: windows-latest
     permissions: 
        contents: write
+    outputs:
+         release_version: ${{steps.release-version.outputs.release-version}}
     
     steps:
          - name: Checkout
@@ -55,12 +57,19 @@ jobs:
            run: |
                git tag  ${{env.RELEASE}}
                git push origin  ${{env.RELEASE}}
+
+         - name: Output Release Version
+           id: release-version
+           run: | 
+               echo "release-version=${{env.RELEASE}}" >> "$GITHUB_OUTPUT" 
+        
     
   release:
      name: Create Release
      uses: ./.github/workflows/release.yml@master
+     needs: build
      with:
-      release_version: ${{ env.RELEASE }}
+      release_version:  ${{needs.builds.outputs.release_version}}
      secrets: inherit
 
 
