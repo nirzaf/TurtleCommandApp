@@ -43,7 +43,7 @@ jobs:
               git tag  ${{env.RELEASE}}
               git push origin  ${{env.RELEASE}}
            env:
-            RELEASE: "v${{github.run_number}}}"
+            RELEASE: "v${{github.run_number}}"
 
 
          - name: Create Release
