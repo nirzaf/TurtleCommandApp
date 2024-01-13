@@ -1,75 +1,79 @@
-name: .NET Core Desktop
-
+name: Generate EXE
+run-name: Build Release-${{ github.run_number }} 
 on:
+  workflow_dispatch:
   push:
-    branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
-
+    branches:
+       - master
+    paths-ignore: 
+       - ".github/**"
+       - "README.md"
+       - "setup/**"
+env:
+  RELEASE: "v${{github.run_number}}"
 jobs:
 
   build:
 
-    strategy:
-      matrix:
-        configuration: [Debug, Release]
-
-    runs-on: windows-latest  
-
-    env:
-      Solution_Name: TurtleCommandApp.sln                         # Replace with your solution name, i.e. MyWpfApp.sln.
-      Wap_Project_Name: TurtleCommandApp                         # Replace with your Windows Application Packaging project name, i.e. MyWpfApp.
-      Wap_Project_Path: "C:\\Users\nirza\\source\repos\\TurtleCommandApp\\TurtleCommandApp.csproj"
-
+    runs-on: windows-latest
+    permissions: 
+       contents: write
+    outputs:
+         release_version: ${{env.RELEASE}}
+    
     steps:
-    - name: Checkout
-      uses: actions/checkout@v3
-      with:
-        fetch-depth: 0
+         - name: Checkout
+           uses: actions/checkout@v3
+           with:
+              fetch-depth: 0
+              ref: master
 
     # Install the .NET Core workload
-    - name: Install .NET Core
-      uses: actions/setup-dotnet@v3
-      with:
-        dotnet-version: 6.0.x
-
-    # Add  MSBuild to the PATH: https://github.com/microsoft/setup-msbuild
-    - name: Setup MSBuild.exe
-      uses: microsoft/setup-msbuild@v1.0.2
-
-    # Execute all unit tests in the solution
-    - name: Execute unit tests
-      run: dotnet test
+         - name: Install .NET Core
+           uses: actions/setup-dotnet@v3
+           with:
+              dotnet-version: 8.0.x
 
     # Restore the application to populate the obj folder with RuntimeIdentifiers
-    - name: Restore the application
-      run: msbuild $env:Solution_Name /t:Restore /p:Configuration=$env:Configuration
-      env:
-        Configuration: ${{ matrix.configuration }}
-
-    # Decode the base 64 encoded pfx and save the Signing_Certificate
-    - name: Decode the pfx
-      run: |
-        $pfx_cert_byte = [System.Convert]::FromBase64String("${{ secrets.Base64_Encoded_Pfx }}")
-        $certificatePath = Join-Path -Path $env:Wap_Project_Directory -ChildPath GitHubActionsWorkflow.pfx
-        [IO.File]::WriteAllBytes("$certificatePath", $pfx_cert_byte)
-
-    # Create the app package by building and packaging the Windows Application Packaging project
-    - name: Create the app package
-      run: msbuild $env:Wap_Project_Path /p:Configuration=$env:Configuration /p:UapAppxPackageBuildMode=$env:Appx_Package_Build_Mode /p:AppxBundle=$env:Appx_Bundle /p:PackageCertificateKeyFile=GitHubActionsWorkflow.pfx /p:PackageCertificatePassword=${{ secrets.Pfx_Key }}
-      env:
-        Appx_Bundle: Always
-        Appx_Bundle_Platforms: x86|x64
-        Appx_Package_Build_Mode: StoreUpload
-        Configuration: ${{ matrix.configuration }}
-
-    # Remove the pfx
-    - name: Remove the pfx
-      run: Remove-Item -path $env:Wap_Project_Directory\GitHubActionsWorkflow.pfx
+         - run: |
+               dotnet build TurtleCommandApp.sln --configuration release --output "${{github.workspace}}\setup"
 
     # Upload the MSIX package: https://github.com/marketplace/actions/upload-a-build-artifact
-    - name: Upload build artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: MSIX Package
-        path: ${{ env.Wap_Project_Directory }}\AppPackages
+         - name: Upload build artifacts
+           uses: actions/upload-artifact@v3
+           with:
+                name: Setup Exe
+                path: ${{ github.workspace }}\setup
+
+         - name: Upload the Build
+           run:  |
+              git add setup
+              git config  user.email "${{github.event.sender.login}}@users.noreply.github.com"
+              git config  user.name "${{github.event.sender.login}}"
+              git commit -m "setup has been updted."
+              git push origin
+                 
+         - name: Create Tag
+           run: |
+               git tag  ${{env.RELEASE}}
+               git push origin  ${{env.RELEASE}}
+
+         - name: Output Release Version
+           id: release_version
+           run: | 
+               echo "version=${{env.RELEASE}}" >> "$GITHUB_OUTPUT" 
+        
+    
+  release:
+     name: Create Release
+     uses: ./.github/workflows/release.yml
+     needs: build
+     with:
+      release_version:  ${{needs.build.outputs.release_version}}
+     secrets: inherit
+     permissions:
+      contents: write
+
+
+        
+                
