@@ -1,5 +1,4 @@
-name: Setup Release-${{ github.run_number }}
-
+run-name: Setup Release-${{ github.run_number }} 
 on:
   workflow_dispatch:
   push:
