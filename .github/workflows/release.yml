@@ -31,5 +31,5 @@ jobs:
              draft: false
              prerelease: false
              files: |
-                  ${{github.workspace}}\setup\TurtleCommandApp.dll
-                  ${{github.workspace}}\setup\TurtleCommandApp.exe
+                  setup/TurtleCommandApp.dll
+                  setup/TurtleCommandApp.exe
