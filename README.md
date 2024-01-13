@@ -1,1 +1,1 @@
-Build Status : [![.github/workflows/dotnet-desktop.yml](https://github.com/nirzaf/TurtleCommandApp/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/nirzaf/TurtleCommandApp/actions/workflows/dotnet-desktop.yml)
+Repo Status : [![.github/workflows/dotnet-desktop.yml](https://github.com/nirzaf/TurtleCommandApp/actions/workflows/dotnet-desktop.yml/badge.svg)](https://github.com/nirzaf/TurtleCommandApp/actions/workflows/dotnet-desktop.yml)
