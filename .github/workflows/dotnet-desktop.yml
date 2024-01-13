@@ -51,7 +51,11 @@ jobs:
               git commit -m "setup has been updted."
               git push origin
                  
-
+         - name: Create Tag
+           run: |
+               git tag  ${{env.RELEASE}}
+               git push origin  ${{env.RELEASE}}
+    
 
         
                 
