@@ -69,7 +69,7 @@ jobs:
      uses: ./.github/workflows/release.yml
      needs: build
      with:
-      release_version:  ${{needs.builds.outputs.release_version}}
+      release_version:  ${{needs.build.outputs.release_version}}
      secrets: inherit
      permissions:
       contents: write
